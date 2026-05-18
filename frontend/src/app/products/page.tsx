@@ -29,15 +29,16 @@ function ProductContent() {
   // 2. CARGAR DATOS DE DJANGO
   useEffect(() => {
     const fetchData = async () => {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
       try {
         // 1. Categorías
-        const resCat = await fetch("http://127.0.0.1:8000/api/inventario/categoria/");
+        const resCat = await fetch(`${API_URL}/api/inventario/categoria/`);
         const dataCat = await resCat.json();
         const catNames = dataCat.map((c: any) => c.nombre);
         setCategories(catNames);
 
         // 2. Productos
-        const resProd = await fetch("http://127.0.0.1:8000/api/inventario/producto/");
+        const resProd = await fetch(`${API_URL}/api/inventario/producto/`);
         const dataProd = await resProd.json();
         
         // Procesar datos (Mapeo de Django a React)
@@ -51,7 +52,7 @@ function ProductContent() {
              } else if (ruta.length > 300) {
                imagenUrl = `data:image/jpeg;base64,${ruta}`;
              } else {
-               imagenUrl = `http://127.0.0.1:8000${ruta.startsWith('/') ? '' : '/'}${ruta}`;
+               imagenUrl = `${API_URL}${ruta.startsWith('/') ? '' : '/'}${ruta}`;
              }
            }
 

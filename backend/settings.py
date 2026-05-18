@@ -24,10 +24,10 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-i%4ka$s9+&4#+7-8%ws^kg$wcnut+nrq=zyg#&qvg1a0^4q5d^'
+SECRET_KEY = env('SECRET_KEY', default='django-insecure-i%4ka$s9+&4#+7-8%ws^kg$wcnut+nrq=zyg#&qvg1a0^4q5d^')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=False)
 
 ALLOWED_HOSTS = [
     "tsi-ecommerce.onrender.com",  # Render backend URL
@@ -59,6 +59,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     "django.middleware.locale.LocaleMiddleware",
     'django.middleware.common.CommonMiddleware',
@@ -137,6 +138,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 # Email (SMTP)
 # Defaults target SMTP; configure host/user/pass via env. For local dev without SMTP, set EMAIL_BACKEND
 # to django.core.mail.backends.console.EmailBackend in your .env.
