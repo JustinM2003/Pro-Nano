@@ -34,6 +34,7 @@ ALLOWED_HOSTS = [
     "tsi-e-commerce.vercel.app",   # Vercel frontend URL
     "localhost",
     "127.0.0.1",
+    "*",                           # Permitir cualquier URL asignada por Render
 ]
 
 
