@@ -104,14 +104,8 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-   "default": {
-     "ENGINE": "django.db.backends.postgresql",
-     "NAME": env("PG_NAME", default="ecommercebd"), 
-     "USER": env("PG_USER", default="postgres"),
-     "PASSWORD": env("PG_PASS", default="1234"),
-     "HOST": env("PG_HOST", default="localhost"),
-     "PORT": env("PG_PORT", default="5432"),
-   }
+    # Usa una sola variable DATABASE_URL, o una por defecto para desarrollo local
+    "default": env.db("DATABASE_URL", default="postgres://postgres:1234@localhost:5432/ecommercebd")
 }
 
 
